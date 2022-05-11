@@ -45,11 +45,42 @@ public class NewTest extends BaseTest{
 	//  listItemPrices = UtilityClass.updateList(priceList);
 	  
 	  
-	  System.out.println(listItemPrices);
+	  System.out.println("prices of itesm before sort::"+listItemPrices);
 	  
 	  Collections.sort(listItemPrices, Collections.reverseOrder());
 	  
-	  System.out.println(listItemPrices);
+	  System.out.println("prices of itesm after sorting in descending order::"+listItemPrices);
+	  
+	  Double dblLeastPrice = listItemPrices.get(listItemPrices.size()-1);
+	  String strLeastPrice = "€"+String.valueOf(dblLeastPrice);
+	  
+	  Double dblMaxPrice = listItemPrices.get(0);
+	  String strMaxPrice = "€"+String.valueOf(dblMaxPrice);
+	  
+	  objShoppingBasket.constructXpathAndClickIncrement(strLeastPrice);
+	  
+	  objShoppingBasket.constructXpathAndClickDelete(strMaxPrice);
+	  
+	  
+	  priceList = objShoppingBasket.getPricesFromCart();
+	  
+	  listItemPrices = UtilityClass.updateList(priceList);
+	  
+	  double dblSubTotal = 0.0;
+	  
+	  for(Double d: listItemPrices) {
+		  dblSubTotal = dblSubTotal+d;
+	  }
+	  
+	  String strSumOfPrice = "€"+String.valueOf(dblSubTotal);
+	  
+	  System.out.println(strSumOfPrice);
+	  
+	  String strTotalPrice = objShoppingBasket.getSubTotalPrice();
+	  
+	  System.out.println(strTotalPrice);
+	  
+	  Assert.assertEquals(strSumOfPrice, strTotalPrice, "Sum of prices in cart does not match with total price");
 //	  
 //	  String strAddFirst2 = p.addMoreProducts();
 //	  boolean hasCartUpdated2 = p.waitForElementToLoad();

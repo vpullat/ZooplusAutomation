@@ -14,6 +14,8 @@ public class ShoppingBasketPage extends BasePage {
 	private By labelPrice = By.xpath("//div[@role='cell' and @class='value two__column']");
 	private By buttonAddMoreProducts = By.cssSelector("div#js-zootopiaRecos-1 button");
 	private By gridRecommendedProducts = By.id("#js-zootopiaRecosContainer-1");
+	private By gridYouMightAlsoLike = By.id("#js-zootopiaTitle-0");
+	private By totalPrice = By.cssSelector("span.v3-text--no-margin.v3-text--right");
 
 	public ShoppingBasketPage(WebDriver driver) {
 		super(driver);
@@ -33,6 +35,16 @@ public class ShoppingBasketPage extends BasePage {
 
 		try {
 			waitForElement(gridRecommendedProducts);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public boolean waitForLoadAfterProdIncrement() {
+
+		try {
+			waitForElement(gridYouMightAlsoLike);
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -68,13 +80,73 @@ public class ShoppingBasketPage extends BasePage {
 	}
 
 	public List<String> getPricesFromCart() {
-		
+
 		List<String> listProductPrices = new ArrayList<>();
 		List<WebElement> listItemPrice = getAllElements(labelPrice);
-	//	List<String> st = elementName.stream().map(s -> s.getText()).collect(Collectors.toList());
+		// List<String> st = elementName.stream().map(s ->
+		// s.getText()).collect(Collectors.toList());
 		listItemPrice.stream().forEach(product -> listProductPrices.add(product.getText()));
 
 		return listProductPrices;
+
+	}
+
+	public void constructXpathAndClickIncrement(String addProduct) {
+
+		try {
+			By incrementProduct = By.xpath("//div[@class='cart__table two__column']//div[contains(text(),'" + addProduct
+					+ "')]//preceding-sibling::div[@class='quantity regular__product two__column']//button[@class='v3-counter__btn v3-counter__btn--right js-inc-amount']");
+			List<WebElement> incrementElements = getAllElements(incrementProduct);
+
+			for (WebElement w : incrementElements) {
+
+				if (w.isDisplayed() == true) {
+					click(w);
+				}
+
+				waitForLoadAfterProdIncrement();
+			}
+
+			
+		} catch (Exception e) {
+			
+		}
+
+	}
+	
+	public void constructXpathAndClickDelete(String deletButton) {
+
+		try {
+			By incrementProduct = By.xpath("//div[@class='cart__table two__column']//div[contains(text(), '"+deletButton
+					+"')]//preceding-sibling::div[@class='quantity regular__product two__column']//button[@class='remove__btn--icon js-remove__btn']");
+			List<WebElement> deleteElements = getAllElements(incrementProduct);
+
+			for (WebElement w : deleteElements) {
+
+				if (w.isDisplayed() == true) {
+					click(w);
+				}
+
+				waitForLoadAfterProdIncrement();
+			}
+
+			
+		} catch (Exception e) {
+			
+		}
+
+	}
+	
+	public String getSubTotalPrice() {
+
+		try {
+			String strTotalPrice = getText(totalPrice);
+			return strTotalPrice;
+		}
+		catch(Exception e){
+			return "0";
+		}
+		
 
 	}
 
