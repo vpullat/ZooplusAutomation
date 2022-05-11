@@ -91,7 +91,7 @@ public class BasePage {
 			throw e;
 		}
 	}
-	
+
 	public String enterText(By elementBy, String textToType) {
 		try {
 
@@ -99,6 +99,15 @@ public class BasePage {
 			driver.findElement(elementBy).sendKeys(textToType);
 			return textToType;
 
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	public void srollToElement(By elementBy) {
+		try {
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			js.executeScript("arguments[0].scrollIntoView();", driver.findElement(elementBy));
 		} catch (Exception e) {
 			throw e;
 		}

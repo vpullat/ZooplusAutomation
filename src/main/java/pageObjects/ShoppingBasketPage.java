@@ -18,8 +18,12 @@ public class ShoppingBasketPage extends BasePage {
 	private By totalPrice = By.cssSelector("span.v3-text--no-margin.v3-text--right");
 	private By labelDeliveryTo = By.cssSelector("div.js-shipping-cost.shipping__country__label");
 	private By buttonSelectCountry = By.cssSelector("button.dropdown__button.v3-text--greyDark");
-	private By inputPostCode = By.cssSelector("input.v3-form__input:nth-child(1)");
-
+	private By inputPostCode = By.cssSelector("div.tippy-content input.v3-form__input");
+	private By labelCountryName = By.xpath("//div[@class='js-countryDropdown dropdown dropdown--isOpen']//ul[@class='dropdown__list v3-text--greyDark']//li[@data-label='Portugal']");
+	private By dropDownCountryList = By.cssSelector(".tippy-box .dropdown__list.v3-text--greyDark");
+	private By buttonUpdate = By.cssSelector(".tippy-box button.v3-btn--fullWidth");
+	private By labelDeliveryFee = By.cssSelector("span.shipping__cost__value");
+	
 	public ShoppingBasketPage(WebDriver driver) {
 		super(driver);
 	}
@@ -44,7 +48,7 @@ public class ShoppingBasketPage extends BasePage {
 		}
 	}
 
-	public boolean waitForLoadAfterProdIncrement() {
+	public boolean waitForLoadAfterCartPageUpdate() {
 
 		try {
 			waitForElement(gridYouMightAlsoLike);
@@ -103,16 +107,16 @@ public class ShoppingBasketPage extends BasePage {
 
 			for (WebElement w : incrementElements) {
 
-				if (w.isDisplayed() == true) {
+				//if (w.isDisplayed() == true) {
 					click(w);
-				}
+				//}
 
-				waitForLoadAfterProdIncrement();
+				waitForLoadAfterCartPageUpdate();
 			}
 
 			
 		} catch (Exception e) {
-			
+			System.out.println(e);
 		}
 
 	}
@@ -130,7 +134,7 @@ public class ShoppingBasketPage extends BasePage {
 					click(w);
 				}
 
-				waitForLoadAfterProdIncrement();
+				waitForLoadAfterCartPageUpdate();
 			}
 
 			
@@ -151,15 +155,31 @@ public class ShoppingBasketPage extends BasePage {
 		}
 	}
 	
-	public void updateDeliveryCountry(String textToEnter) {
-
+	public String updateDeliveryCountry(String textToEnter) {
+		
 		try {
 			click(labelDeliveryTo);
+			click(buttonSelectCountry);
+			waitForElement(dropDownCountryList);
+			srollToElement(labelCountryName);
+			click(labelCountryName);
 			enterText(inputPostCode,textToEnter);
-			
+			click(buttonUpdate);
+			return "country updated";
 		}
 		catch(Exception e){
-			
+			return "country update failed "+e;
+		}
+	}
+	
+	public String getDeliveryFee() {
+
+		try {
+			String strTotalPrice = getText(labelDeliveryFee);
+			return strTotalPrice;
+		}
+		catch(Exception e){
+			return "0";
 		}
 	}
 

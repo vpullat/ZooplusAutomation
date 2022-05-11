@@ -2,20 +2,20 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2022-05-11T09:38:40Z" name="Default suite" finished-at="2022-05-11T09:40:27Z" duration-ms="106416">
+  <suite started-at="2022-05-11T19:08:26Z" name="Default suite" finished-at="2022-05-11T19:13:56Z" duration-ms="330422">
     <groups>
     </groups>
-    <test started-at="2022-05-11T09:38:40Z" name="Default test" finished-at="2022-05-11T09:40:27Z" duration-ms="106416">
+    <test started-at="2022-05-11T19:08:26Z" name="Default test" finished-at="2022-05-11T19:13:56Z" duration-ms="330422">
       <class name="tests.NewTest">
-        <test-method is-config="true" signature="setup()[pri:0, instance:tests.NewTest@16b2bb0c]" started-at="2022-05-11T09:38:40Z" name="setup" finished-at="2022-05-11T09:38:48Z" duration-ms="7820" status="PASS">
+        <test-method is-config="true" signature="setup()[pri:0, instance:tests.NewTest@45a4b042]" started-at="2022-05-11T19:08:26Z" name="setup" finished-at="2022-05-11T19:08:32Z" duration-ms="6339" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="f()[pri:0, instance:tests.NewTest@16b2bb0c]" started-at="2022-05-11T09:38:48Z" name="f" finished-at="2022-05-11T09:40:26Z" duration-ms="97808" status="PASS">
+        <test-method signature="f()[pri:0, instance:tests.NewTest@45a4b042]" started-at="2022-05-11T19:08:32Z" name="f" finished-at="2022-05-11T19:13:55Z" duration-ms="323341" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- f -->
-        <test-method is-config="true" signature="teardown()[pri:0, instance:tests.NewTest@16b2bb0c]" started-at="2022-05-11T09:40:26Z" name="teardown" finished-at="2022-05-11T09:40:27Z" duration-ms="761" status="PASS">
+        <test-method is-config="true" signature="teardown()[pri:0, instance:tests.NewTest@45a4b042]" started-at="2022-05-11T19:13:55Z" name="teardown" finished-at="2022-05-11T19:13:56Z" duration-ms="712" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- teardown -->

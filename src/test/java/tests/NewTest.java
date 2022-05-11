@@ -83,24 +83,12 @@ public class NewTest extends BaseTest{
 	  Assert.assertEquals(strSumOfPrice, strTotalPrice, "Sum of prices in cart does not match with total price");
 	  
 	  objShoppingBasket.updateDeliveryCountry("5000");
-//	  
-//	  String strAddFirst2 = p.addMoreProducts();
-//	  boolean hasCartUpdated2 = p.waitForElementToLoad();
-//	  
-//	  String strAddFirst3 = p.addMoreProducts();
-//	  boolean hasCartUpdated3 = p.waitForElementToLoad();
-//	  
-//	  List<String> list = p.getPricesFromCart();
-//	  
-//	  for(String s: list) {
-//		  System.out.println(s);
-//	  }
-//	  
-//      try {
-//		Thread.sleep(30000);
-//	} catch (InterruptedException e) {
-//		// TODO Auto-generated catch block
-//		e.printStackTrace();
-//	}
+	  
+	  objShoppingBasket.waitForLoadAfterCartPageUpdate();
+	  
+	  String strDeliveryFee = objShoppingBasket.getDeliveryFee().trim();
+	  
+	  System.out.println(strDeliveryFee);
+
   }
 }

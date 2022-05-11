@@ -43,7 +43,7 @@ public class CartEmptyPage extends BasePage {
 			System.out.println(s);
 			for (WebElement w : elementName) {
 
-				// js.executeScript("arguments[0].scrollIntoView();", w);
+				
 				if (w.isDisplayed() == true) {
 					click(w);
 					break;
