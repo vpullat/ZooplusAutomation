@@ -47,7 +47,7 @@ public class BasePage {
 		// waitVisibility(elementBy);
 		try {
 
-			// wait.until(ExpectedConditions.elementToBeClickable(elementToClick));
+			wait.until(ExpectedConditions.elementToBeClickable(elementToClick));
 			elementToClick.click();
 
 		} catch (Exception e) {
@@ -86,6 +86,18 @@ public class BasePage {
 			wait.until(ExpectedConditions.visibilityOfElementLocated(elementBy));
 			String strText = driver.findElement(elementBy).getText();
 			return strText;
+
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	public String enterText(By elementBy, String textToType) {
+		try {
+
+			wait.until(ExpectedConditions.elementToBeClickable(elementBy));
+			driver.findElement(elementBy).sendKeys(textToType);
+			return textToType;
 
 		} catch (Exception e) {
 			throw e;

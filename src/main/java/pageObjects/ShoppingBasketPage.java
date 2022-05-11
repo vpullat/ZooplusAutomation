@@ -16,6 +16,9 @@ public class ShoppingBasketPage extends BasePage {
 	private By gridRecommendedProducts = By.id("#js-zootopiaRecosContainer-1");
 	private By gridYouMightAlsoLike = By.id("#js-zootopiaTitle-0");
 	private By totalPrice = By.cssSelector("span.v3-text--no-margin.v3-text--right");
+	private By labelDeliveryTo = By.cssSelector("div.js-shipping-cost.shipping__country__label");
+	private By buttonSelectCountry = By.cssSelector("button.dropdown__button.v3-text--greyDark");
+	private By inputPostCode = By.cssSelector("input.v3-form__input:nth-child(1)");
 
 	public ShoppingBasketPage(WebDriver driver) {
 		super(driver);
@@ -146,8 +149,18 @@ public class ShoppingBasketPage extends BasePage {
 		catch(Exception e){
 			return "0";
 		}
-		
+	}
+	
+	public void updateDeliveryCountry(String textToEnter) {
 
+		try {
+			click(labelDeliveryTo);
+			enterText(inputPostCode,textToEnter);
+			
+		}
+		catch(Exception e){
+			
+		}
 	}
 
 }

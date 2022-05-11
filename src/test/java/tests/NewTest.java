@@ -81,6 +81,8 @@ public class NewTest extends BaseTest{
 	  System.out.println(strTotalPrice);
 	  
 	  Assert.assertEquals(strSumOfPrice, strTotalPrice, "Sum of prices in cart does not match with total price");
+	  
+	  objShoppingBasket.updateDeliveryCountry("5000");
 //	  
 //	  String strAddFirst2 = p.addMoreProducts();
 //	  boolean hasCartUpdated2 = p.waitForElementToLoad();
