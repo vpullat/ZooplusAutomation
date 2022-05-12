@@ -34,7 +34,7 @@ public class BasePage {
 	}
 
 	public void click(By elementBy) {
-		// waitVisibility(elementBy);
+
 		try {
 			wait.until(ExpectedConditions.elementToBeClickable(elementBy));
 			driver.findElement(elementBy).click();
@@ -44,10 +44,8 @@ public class BasePage {
 	}
 
 	public void click(WebElement elementToClick) {
-		// waitVisibility(elementBy);
+		
 		try {
-
-			wait.until(ExpectedConditions.elementToBeClickable(elementToClick));
 			elementToClick.click();
 
 		} catch (Exception e) {
@@ -56,13 +54,23 @@ public class BasePage {
 	}
 
 	public void waitForElement(By elementBy) {
-		// waitVisibility(elementBy);
+		
 		try {
-
 			wait.until(ExpectedConditions.elementToBeClickable(elementBy));
-			// elementToClick.click();
 
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	public void waitForElement(WebElement element) {
+		
+		try {
+			wait.until(ExpectedConditions.elementToBeClickable(element));
+
+		} 
+		catch (Exception e) {
 			throw e;
 		}
 	}
@@ -72,6 +80,21 @@ public class BasePage {
 		try {
 
 			List<WebElement> elementName = driver.findElements(elementBy);
+			return elementName;
+			// elementToClick.click();
+
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	// Overloaded method to get child elements from a parent element
+	public List<WebElement> getAllElements(By parentBy, By childBy) {
+		// waitVisibility(elementBy);
+		try {
+
+			WebElement parentElement = driver.findElement(parentBy);
+			List<WebElement> elementName = parentElement.findElements(childBy);
 			return elementName;
 			// elementToClick.click();
 
