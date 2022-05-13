@@ -1,8 +1,6 @@
 package pageObjects;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -14,57 +12,61 @@ public class CartEmptyPage extends BasePage {
 		super(driver);
 	}
 
-	By buttonAcceptCookie = By.id("onetrust-accept-btn-handler");
-	By buttonAddToCart = By.cssSelector("#js-zootopiaRecosEmpty button");
+	private By buttonAcceptCookie = By.id("onetrust-accept-btn-handler");
+	private By buttonAddToCart = By.cssSelector("#js-zootopiaRecosEmpty button");
 	private By labelRecommnededProducts = By
 			.xpath("//div[@class='custom__slider']//h3[contains(text(),'Need some inspiration?')]");
 
 	public String acceptCookies() {
 		try {
 			click(buttonAcceptCookie);
-			return "Success";
 		} catch (Exception e) {
 			return "Cookie setting not available -" + e;
 		}
+		return "Success";
 	}
 
 	public ShoppingBasketPage addProductFromRecommended() {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollBy(0,500)");
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
-		}
-		try {
-			// List<WebElement> elementName = driver.findElements(buttonAddToCart);
-			List<WebElement> elementName = getAllElements(buttonAddToCart);
-			int s = elementName.size();
-			System.out.println(s);
-			for (WebElement w : elementName) {
+		int intIterator = 0;
+		int intAttempts = 0;
 
-				
-				if (w.isDisplayed() == true) {
-					click(w);
-					break;
-				}
+		try {
+			List<WebElement> elementName = getAllElements(buttonAddToCart);
+
+			while (elementName.size() == 0 && intAttempts < 5) {
+				elementName = getAllElements(buttonAddToCart);
+				intAttempts++;
 			}
 
-			return new ShoppingBasketPage(driver);
-		} catch (Exception e) {
+			intAttempts = 0;
+
+			while (intIterator == 0 && intAttempts < 5) {
+				for (WebElement w : elementName) {
+
+					if (w.isDisplayed() == true) {
+						click(w);
+						intIterator++;
+						break;
+					}
+				}
+				intAttempts++;
+			}
+		} 
+		catch (Exception e) {
 			return null;
 		}
+		return new ShoppingBasketPage(driver);
 	}
-
 
 	public boolean waitForEmptyCartPageLoad() {
 
 		try {
 			waitForElement(labelRecommnededProducts);
-			return true;
 		} catch (Exception e) {
 			return false;
 		}
+		return true;
 	}
-
 }

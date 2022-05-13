@@ -2,8 +2,6 @@ package pageObjects;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -35,10 +33,10 @@ public class ShoppingBasketPage extends BasePage {
 
 		try {
 			waitForElement(labelPrice);
-			return true;
 		} catch (Exception e) {
 			return false;
 		}
+		return true;
 	}
 
 	public boolean waitForRecommendedProductsLoad() {
@@ -55,10 +53,10 @@ public class ShoppingBasketPage extends BasePage {
 
 		try {
 			waitForElement(gridYouMightAlsoLike);
-			return true;
 		} catch (Exception e) {
 			return false;
 		}
+		return true;
 	}
 
 	public String addMoreProducts() {
@@ -71,14 +69,14 @@ public class ShoppingBasketPage extends BasePage {
 			List<WebElement> elementName = getAllElements(buttonAddMoreProducts);
 			System.out.println(elementName.size());
 
-			while (elementName.size() == 0 || intAttempts > 5) {
+			while (elementName.size() == 0 && intAttempts < 5) {
 				elementName = getAllElements(buttonAddMoreProducts);
 				intAttempts++;
 			}
 
 			intAttempts = 0;
 
-			while (intIterator == 0 || intAttempts > 5) {
+			while (intIterator == 0 && intAttempts < 5) {
 				for (WebElement elm : elementName) {
 
 					if (elm.isDisplayed() == true) {
@@ -90,11 +88,10 @@ public class ShoppingBasketPage extends BasePage {
 
 				intAttempts++;
 			}
-
-			return "Success";
 		} catch (Exception e) {
 			return "Failed";
 		}
+		return "Success";
 	}
 
 	public List<String> getPricesFromCart() {
@@ -105,15 +102,15 @@ public class ShoppingBasketPage extends BasePage {
 			List<WebElement> listItemPrice = getAllElements(labelPrice);
 			listItemPrice.stream().forEach(product -> listProductPrices.add(product.getText()));
 
-			return listProductPrices;
 		} catch (Exception e) {
 
 			return listProductPrices;
 		}
+		return listProductPrices;
 
 	}
 
-	public void constructXpathAndClickIncrement(String addProduct) {
+	public String constructXpathAndClickIncrement(String addProduct) {
 
 		try {
 			By buttonIncrementProduct = By.xpath("//div[contains(text(),'" + addProduct
@@ -121,7 +118,7 @@ public class ShoppingBasketPage extends BasePage {
 			List<WebElement> incrementElements = getAllElements(gridYourShoppingBasket, buttonIncrementProduct);
 
 			int itrAttempt = 0;
-			while (incrementElements.size() > 0 || itrAttempt > 10) {
+			while (incrementElements.size() > 0 && itrAttempt < 10) {
 				for (WebElement elm : incrementElements) {
 
 					try {
@@ -136,11 +133,12 @@ public class ShoppingBasketPage extends BasePage {
 			}
 		} catch (Exception e) {
 			System.out.println(e);
+			return "Failed";
 		}
-
+		return "Success";
 	}
 
-	public void constructXpathAndClickDelete(String deletButton) {
+	public String constructXpathAndClickDelete(String deletButton) {
 
 		try {
 			By buttonDeleteProduct = By.xpath("//div[contains(text(), '" + deletButton
@@ -148,7 +146,7 @@ public class ShoppingBasketPage extends BasePage {
 			List<WebElement> deleteElements = getAllElements(gridYourShoppingBasket, buttonDeleteProduct);
 
 			int itrAttempt = 0;
-			while (deleteElements.size() > 0 || itrAttempt > 10) {
+			while (deleteElements.size() > 0 && itrAttempt < 10) {
 				for (WebElement elm : deleteElements) {
 
 					try {
@@ -162,19 +160,19 @@ public class ShoppingBasketPage extends BasePage {
 				}
 			}
 		} catch (Exception e) {
-
+			return "Failed";
 		}
-
+		return "Success";
 	}
 
 	public String getSubTotalPrice() {
-
+		String strTotalPrice = "0";
 		try {
-			String strTotalPrice = getText(totalPrice);
-			return strTotalPrice;
+			strTotalPrice = getText(totalPrice);
 		} catch (Exception e) {
-			return "0";
+			return strTotalPrice;
 		}
+		return strTotalPrice;
 	}
 
 	public String updateDeliveryCountry(String textToEnter) {
@@ -194,13 +192,13 @@ public class ShoppingBasketPage extends BasePage {
 	}
 
 	public String getDeliveryFee() {
-
+		String strTotalPrice = "0";
 		try {
-			String strTotalPrice = getText(labelDeliveryFee);
-			return strTotalPrice;
+			strTotalPrice = getText(labelDeliveryFee);
 		} catch (Exception e) {
 			return "0";
 		}
+		return strTotalPrice;
 	}
 
 }

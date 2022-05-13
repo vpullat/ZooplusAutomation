@@ -5,7 +5,7 @@
     <classes>
       <class name="tests.NewTest">
         <methods>
-          <include name="f"/>
+          <include name="fnAddProductToCart"/>
           <include name="teardown"/>
           <include name="setup"/>
         </methods>
