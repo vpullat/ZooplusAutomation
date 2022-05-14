@@ -18,16 +18,14 @@ public class NewTest extends BaseTest {
 			p.waitForEmptyCartPageLoad();
 			ShoppingBasketPage objShoppingBasket = p.addProductFromRecommended();
 
-			objShoppingBasket.waitForShoppingBasketPageLoad();
+			// Waiting for the shopping cart page to fully load
+			objShoppingBasket.waitForRecommendedProductsLoad();
 
 			// Validate the overview URL
 			String strURL = driver.getCurrentUrl();
 			boolean b = strURL.contains("overview");
-			System.out.println(strURL);
+			System.out.println("Printing Shopping cart URL::: "+strURL);
 			Assert.assertTrue(b, "overview not found in shopping basket url");
-
-			// Waiting for the page to fully load
-			objShoppingBasket.waitForRecommendedProductsLoad();
 
 			// Add 3 more products
 			for (int i = 0; i < 3; i++) {
@@ -40,10 +38,10 @@ public class NewTest extends BaseTest {
 			priceList = objShoppingBasket.getPricesFromCart();
 
 			List<Double> listItemPrices = UtilityClass.updateList(priceList);
-			System.out.println("prices of items before sort::" + listItemPrices);
+			System.out.println("prices of items before sort:: " + listItemPrices);
 
 			Collections.sort(listItemPrices, Collections.reverseOrder());
-			System.out.println("prices of items after sorting in descending order::" + listItemPrices);
+			System.out.println("prices of items after sorting in descending order:: " + listItemPrices);
 
 			Double dblLeastPrice = listItemPrices.get(listItemPrices.size() - 1);
 			String strLeastPrice = "€" + String.valueOf(dblLeastPrice);
@@ -51,10 +49,10 @@ public class NewTest extends BaseTest {
 			Double dblMaxPrice = listItemPrices.get(0);
 			String strMaxPrice = "€" + String.valueOf(dblMaxPrice);
 
-			// Increment the item with least price
+			// Increment the product/products with the lowest price
 			objShoppingBasket.constructXpathAndClickIncrement(strLeastPrice);
 
-			// Delete the item with highest price
+			// Delete the product/products with the highest price
 			objShoppingBasket.constructXpathAndClickDelete(strMaxPrice);
 
 			// Get the sum of prices in the cart and Subtotal price
@@ -70,9 +68,9 @@ public class NewTest extends BaseTest {
 
 			// Pint and assert the prices
 			String strSumOfPrice = "€" + String.valueOf(dblSubTotal);
-			System.out.println("Sum of prices in cart::" + strSumOfPrice);
+			System.out.println("Sum of prices of the products in cart:: " + strSumOfPrice);
 			String strSubTotalPrice = objShoppingBasket.getSubTotalPrice();
-			System.out.println("Subtotal price::" + strSubTotalPrice);
+			System.out.println("Subtotal price:: " + strSubTotalPrice);
 
 			Assert.assertEquals(strSumOfPrice, strSubTotalPrice,
 					"Sum of prices in cart does not match with Subtotal price");
@@ -98,14 +96,13 @@ public class NewTest extends BaseTest {
 			String strFinalSumOfPrice = "€" + String.valueOf(dblSubTotal);
 
 			// Pint and assert the prices
-			System.out.println(strFinalSumOfPrice);
+			System.out.println("Sum of final prices of the products in cart:: "+strFinalSumOfPrice);
 			String strFinalSubTotalPrice = objShoppingBasket.getSubTotalPrice();
-			System.out.println(strFinalSubTotalPrice);
+			System.out.println("Final Subtotal price:: "+strFinalSubTotalPrice);
 
 			Assert.assertEquals(strFinalSumOfPrice, strFinalSubTotalPrice,
 					"Final sum of prices in cart does not match with the final Subtotal price");
-		} 
-		catch (Exception e) {
+		} catch (Exception e) {
 			Assert.assertTrue(false, "Test failed with Exception::" + e);
 		}
 	}

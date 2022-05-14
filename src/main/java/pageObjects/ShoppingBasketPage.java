@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -67,7 +66,6 @@ public class ShoppingBasketPage extends BasePage {
 
 		try {
 			List<WebElement> elementName = getAllElements(buttonAddMoreProducts);
-			System.out.println(elementName.size());
 
 			while (elementName.size() == 0 && intAttempts < 5) {
 				elementName = getAllElements(buttonAddMoreProducts);
@@ -79,13 +77,20 @@ public class ShoppingBasketPage extends BasePage {
 			while (intIterator == 0 && intAttempts < 5) {
 				for (WebElement elm : elementName) {
 
-					if (elm.isDisplayed() == true) {
-						click(elm);
-						intIterator++;
-						break;
-					}
-				}
+						try {
+							click(elm);
+							intIterator++;
+							break;
+						} catch (Exception e) {
 
+						}
+				}
+				if(intIterator ==0) {
+					driver.navigate().refresh();
+					waitForRecommendedProductsLoad();
+					elementName = getAllElements(buttonAddMoreProducts);
+				}
+				
 				intAttempts++;
 			}
 		} catch (Exception e) {
@@ -107,7 +112,6 @@ public class ShoppingBasketPage extends BasePage {
 			return listProductPrices;
 		}
 		return listProductPrices;
-
 	}
 
 	public String constructXpathAndClickIncrement(String addProduct) {
@@ -123,7 +127,7 @@ public class ShoppingBasketPage extends BasePage {
 
 					try {
 						click(elm);
-					} catch (StaleElementReferenceException e) {
+					} catch (Exception e) {
 
 					}
 					waitForLoadAfterCartPageUpdate();
@@ -151,7 +155,7 @@ public class ShoppingBasketPage extends BasePage {
 
 					try {
 						click(elm);
-					} catch (StaleElementReferenceException e) {
+					} catch (Exception e) {
 
 					}
 					waitForLoadAfterCartPageUpdate();

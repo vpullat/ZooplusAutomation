@@ -12,8 +12,8 @@ import org.openqa.selenium.JavascriptExecutor;
 
 public class BasePage {
 
-	public WebDriver driver;
-	public WebDriverWait wait;
+	protected WebDriver driver;
+	protected WebDriverWait wait;
 
 	public BasePage(WebDriver driver) {
 		this.driver = driver;
@@ -28,13 +28,11 @@ public class BasePage {
 						.equals("complete");
 			}
 		};
-
-		// WebDriverWait wait = new WebDriverWait(driver,60);
 		wait.until(pageLoadCondition);
 	}
 
 	public void click(By elementBy) {
-
+		
 		try {
 			wait.until(ExpectedConditions.elementToBeClickable(elementBy));
 			driver.findElement(elementBy).click();
@@ -76,51 +74,47 @@ public class BasePage {
 	}
 
 	public List<WebElement> getAllElements(By elementBy) {
-		// waitVisibility(elementBy);
+		
 		try {
-
 			List<WebElement> elementName = driver.findElements(elementBy);
 			return elementName;
-			// elementToClick.click();
-
 		} catch (Exception e) {
-			throw e;
+			return null;
 		}
+		
 	}
 
 	// Overloaded method to get child elements from a parent element
 	public List<WebElement> getAllElements(By parentBy, By childBy) {
-		// waitVisibility(elementBy);
+		
 		try {
-
 			WebElement parentElement = driver.findElement(parentBy);
 			List<WebElement> elementName = parentElement.findElements(childBy);
 			return elementName;
-			// elementToClick.click();
-
 		} catch (Exception e) {
-			throw e;
+			return null;
 		}
+		
 	}
 
 	public String getText(By elementBy) {
+		
+		String strText = "";
 		try {
-
 			wait.until(ExpectedConditions.visibilityOfElementLocated(elementBy));
-			String strText = driver.findElement(elementBy).getText();
-			return strText;
+			strText = driver.findElement(elementBy).getText();
 
 		} catch (Exception e) {
-			throw e;
+			return strText;
 		}
+		return strText;
 	}
 
-	public String enterText(By elementBy, String textToType) {
+	public void enterText(By elementBy, String textToType) {
+		
 		try {
-
 			wait.until(ExpectedConditions.elementToBeClickable(elementBy));
 			driver.findElement(elementBy).sendKeys(textToType);
-			return textToType;
 
 		} catch (Exception e) {
 			throw e;
@@ -128,6 +122,7 @@ public class BasePage {
 	}
 
 	public void srollToElement(By elementBy) {
+		
 		try {
 			JavascriptExecutor js = (JavascriptExecutor) driver;
 			js.executeScript("arguments[0].scrollIntoView();", driver.findElement(elementBy));

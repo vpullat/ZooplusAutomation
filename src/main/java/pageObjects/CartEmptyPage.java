@@ -43,18 +43,24 @@ public class CartEmptyPage extends BasePage {
 			intAttempts = 0;
 
 			while (intIterator == 0 && intAttempts < 5) {
-				for (WebElement w : elementName) {
+				for (WebElement elm : elementName) {
 
-					if (w.isDisplayed() == true) {
-						click(w);
-						intIterator++;
-						break;
-					}
+						try {
+							click(elm);
+							intIterator++;
+							break;
+						} catch (Exception e) {
+
+						}
+				}
+				if(intIterator ==0) {
+					driver.navigate().refresh();
+					waitForEmptyCartPageLoad();
+					elementName = getAllElements(buttonAddToCart);
 				}
 				intAttempts++;
 			}
-		} 
-		catch (Exception e) {
+		} catch (Exception e) {
 			return null;
 		}
 		return new ShoppingBasketPage(driver);
