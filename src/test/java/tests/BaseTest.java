@@ -22,7 +22,7 @@ public class BaseTest {
 
 		try {
 
-			// Open the browser and navigate to zooplus.com
+			// Open the browser and navigate to zooplus.com cart empty page
 			try {
 				objProperties = UtilityClass.readConfigFile();
 				appURL = objProperties.getProperty("url");

@@ -14,9 +14,9 @@ public class NewTest extends BaseTest {
 	public void fnAddProductToCart() {
 
 		try {
-			CartEmptyPage p = new CartEmptyPage(driver);
-			p.waitForEmptyCartPageLoad();
-			ShoppingBasketPage objShoppingBasket = p.addProductFromRecommended();
+			CartEmptyPage objEmptyCart = new CartEmptyPage(driver);
+			objEmptyCart.waitForEmptyCartPageLoad();
+			ShoppingBasketPage objShoppingBasket = objEmptyCart.addProductFromRecommended();
 
 			// Waiting for the shopping cart page to fully load
 			objShoppingBasket.waitForRecommendedProductsLoad();

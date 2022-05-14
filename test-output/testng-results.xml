@@ -2,20 +2,20 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2022-05-14T04:13:32Z" name="Default suite" finished-at="2022-05-14T04:14:56Z" duration-ms="84449">
+  <suite started-at="2022-05-14T08:20:27Z" name="Default suite" finished-at="2022-05-14T08:21:50Z" duration-ms="83166">
     <groups>
     </groups>
-    <test started-at="2022-05-14T04:13:32Z" name="Default test" finished-at="2022-05-14T04:14:56Z" duration-ms="84449">
+    <test started-at="2022-05-14T08:20:27Z" name="Default test" finished-at="2022-05-14T08:21:50Z" duration-ms="83166">
       <class name="tests.NewTest">
-        <test-method is-config="true" signature="setup()[pri:0, instance:tests.NewTest@16b2bb0c]" started-at="2022-05-14T04:13:32Z" name="setup" finished-at="2022-05-14T04:13:39Z" duration-ms="6956" status="PASS">
+        <test-method is-config="true" signature="setup()[pri:0, instance:tests.NewTest@16b2bb0c]" started-at="2022-05-14T08:20:27Z" name="setup" finished-at="2022-05-14T08:20:33Z" duration-ms="6220" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="fnAddProductToCart()[pri:0, instance:tests.NewTest@16b2bb0c]" started-at="2022-05-14T04:13:39Z" name="fnAddProductToCart" finished-at="2022-05-14T04:14:56Z" duration-ms="76802" status="PASS">
+        <test-method signature="fnAddProductToCart()[pri:0, instance:tests.NewTest@16b2bb0c]" started-at="2022-05-14T08:20:34Z" name="fnAddProductToCart" finished-at="2022-05-14T08:21:50Z" duration-ms="76193" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- fnAddProductToCart -->
-        <test-method is-config="true" signature="teardown()[pri:0, instance:tests.NewTest@16b2bb0c]" started-at="2022-05-14T04:14:56Z" name="teardown" finished-at="2022-05-14T04:14:56Z" duration-ms="671" status="PASS">
+        <test-method is-config="true" signature="teardown()[pri:0, instance:tests.NewTest@16b2bb0c]" started-at="2022-05-14T08:21:50Z" name="teardown" finished-at="2022-05-14T08:21:50Z" duration-ms="725" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- teardown -->
